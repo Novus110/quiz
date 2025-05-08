@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Avatar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-image: url('IMG/webpage-bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .main-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #3a5b8a;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #3a5b8a;
+            margin: 25px 0 15px;
+            text-align: center;
+        }
+        
+        .name-section {
+            margin-bottom: 25px;
+        }
+        
+        .name-input {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            display: block;
+        }
+        
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .avatar-option {
+            border: 3px solid transparent;
+            border-radius: 10px;
+            padding: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .avatar-option:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .avatar-option.selected {
+            border-color: #3a5b8a;
+            background-color: #f0f7ff;
+        }
+        
+        .avatar-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            aspect-ratio: 1/1;
+            object-fit: contain;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 576px) {
+            .main-container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .avatar-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-buttons .btn {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Create Your Character</h1>
+        
+        <!-- Name Input Section -->
+        <div class="name-section text-center">
+            <input type="text" class="name-input form-control" placeholder="Enter your character's name" maxlength="20">
+        </div>
+        
+        <!-- Avatar Selection -->
+        <h2>Choose Your Avatar</h2>
+        <div class="avatar-grid">
+            <!-- Avatar Options -->
+            <div class="avatar-option selected" onclick="selectAvatar(this)">
+                <img src="IMG/boy1.png" alt="Avatar 1" class="avatar-image img-fluid">
+            </div>
+            
+            <div class="avatar-option" onclick="selectAvatar(this)">
+                <img src="IMG/girl1.png" alt="Avatar 2" class="avatar-image img-fluid">
+            </div>
+            
+            <div class="avatar-option" onclick="selectAvatar(this)">
+                <img src="IMG/boy2.png" alt="Avatar 3" class="avatar-image img-fluid">
+            </div>
+            
+            <div class="avatar-option" onclick="selectAvatar(this)">
+                <img src="IMG/girl2.png" alt="Avatar 4" class="avatar-image img-fluid">
+            </div>
+            
+            <div class="avatar-option" onclick="selectAvatar(this)">
+                <img src="IMG/boy3.png" alt="Avatar 5" class="avatar-image img-fluid">
+            </div>
+            
+            <div class="avatar-option" onclick="selectAvatar(this)">
+                <img src="IMG/girl3.png" alt="Avatar 6" class="avatar-image img-fluid">
+            </div>
+            
+            <div class="avatar-option" onclick="selectAvatar(this)">
+                <img src="IMG/boy1.png" alt="Avatar 7" class="avatar-image img-fluid">
+            </div>
+            
+            <div class="avatar-option" onclick="selectAvatar(this)">
+                <img src="IMG/girl1.png" alt="Avatar 8" class="avatar-image img-fluid">
+            </div>
+            
+            <div class="avatar-option" onclick="selectAvatar(this)">
+                <img src="IMG/boy2.png" alt="Avatar 9" class="avatar-image img-fluid">
+            </div>
+
+            <div class="avatar-option" onclick="selectAvatar(this)">
+                <img src="IMG/girl2.png" alt="Avatar 10" class="avatar-image img-fluid">
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-secondary" id="togoback">Back</button>
+            <button class="btn btn-primary" id="confirmBtn">Confirm</button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Selected avatar reference
+        let selectedAvatar = document.querySelector('.avatar-option.selected');
+        let characterName = '';
+        
+        // Back button event
+        document.getElementById('togoback').addEventListener('click', function() {
+            window.location.href = 'choose-area.html';
+        });
+        
+        // Avatar selection function
+        function selectAvatar(element) {
+            // Remove selected class from all options
+            document.querySelectorAll('.avatar-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            selectedAvatar = element;
+        }
+        
+        // Confirm selection function
+        document.getElementById('confirmBtn').addEventListener('click', function() {
+            characterName = document.querySelector('.name-input').value.trim();
+            
+            if (!characterName) {
+                alert('Please enter a name for your character');
+                return;
+            }
+            
+            // In a real game, you would save these selections
+            const characterData = {
+                name: characterName,
+                avatar: selectedAvatar.querySelector('img').src
+            };
+            
+            console.log('Character created:', characterData);
+            alert(`Character "${characterName}" created successfully!`);
+            
+            // Proceed to game
+            // window.location.href = 'game.html';
+        });
+    </script>
+</body>
+</html>
